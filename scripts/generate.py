@@ -77,6 +77,8 @@ def main():
         str(MODELS_PATH),
         "--output-model-type",
         "pydantic_v2.BaseModel",
+        "--target-python-version",
+        "3.10",
     ]
     subprocess.run(cmd, check=True)
 

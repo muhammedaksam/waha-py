@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "waha-py"
+version = "2026.7.1"
+description = "Python SDK for WAHA (WhatsApp HTTP API) - auto-generated from OpenAPI spec with full type safety, sync & async support."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Muhammed Mustafa AKŞAM", email = "info@muhammedaksam.com.tr" }
+]
+keywords = [
+    "waha",
+    "whatsapp",
+    "whatsapp-api",
+    "http-api",
+    "python",
+    "sdk",
+    "httpx",
+    "pydantic"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/muhammedaksam/waha-py"
+Documentation = "https://github.com/muhammedaksam/waha-py#readme"
+Repository = "https://github.com/muhammedaksam/waha-py"
+Issues = "https://github.com/muhammedaksam/waha-py/issues"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.4.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "datamodel-code-generator>=0.25.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/waha"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+

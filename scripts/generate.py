@@ -2,6 +2,7 @@
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -66,7 +67,7 @@ def main():
 
     print("2. Generating Pydantic models with datamodel-code-generator...")
     cmd = [
-        "python3",
+        sys.executable,
         "-m",
         "datamodel_code_generator",
         "--input",
@@ -292,8 +293,8 @@ def main():
     print(f"Wrote WahaClient to {CLIENT_PATH}")
 
     print("5. Formatting code with ruff...")
-    subprocess.run(["python3", "-m", "ruff", "check", "--fix", str(ROOT_DIR)], check=False)
-    subprocess.run(["python3", "-m", "ruff", "format", str(ROOT_DIR)], check=False)
+    subprocess.run([sys.executable, "-m", "ruff", "check", "--fix", str(ROOT_DIR)], check=False)
+    subprocess.run([sys.executable, "-m", "ruff", "format", str(ROOT_DIR)], check=False)
 
     print("Done!")
 

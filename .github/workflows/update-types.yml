@@ -135,11 +135,12 @@ jobs:
           VERSION="${{ steps.waha_version.outputs.waha_version }}"
           echo "New version: $VERSION"
           python3 -c "
-          import re
+          import sys, re
+          version = sys.argv[1]
           content = open('pyproject.toml').read()
-          new_content = re.sub(r'version\s*=\s*\".*?\"', f'version = \"{VERSION}\"', content, count=1)
+          new_content = re.sub(r'version\s*=\s*\".*?\"', f'version = \"{version}\"', content, count=1)
           open('pyproject.toml', 'w').write(new_content)
-          "
+          " "$VERSION"
           echo "new_version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Commit and tag

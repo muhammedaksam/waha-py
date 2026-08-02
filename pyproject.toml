@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "waha-py"
-version = "2026.7.1"
+version = "2026.7.2"
 description = "Python SDK for WAHA (WhatsApp HTTP API) - auto-generated from OpenAPI spec with full type safety, sync & async support."
 readme = "README.md"
 license = "MIT"

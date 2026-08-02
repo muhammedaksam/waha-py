@@ -3906,6 +3906,66 @@ class GroupsApi:
         except Exception:
             return response.text
 
+    def set_member_add_mode(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Update settings - who can add new members"""
+        url = f"/api/{session}/groups/{id}/settings/security/member-add-mode"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = self._http.request("PUT", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_set_member_add_mode(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Update settings - who can add new members (async)"""
+        url = f"/api/{session}/groups/{id}/settings/security/member-add-mode"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("PUT", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def get_member_add_mode(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get settings - who can add new members"""
+        url = f"/api/{session}/groups/{id}/settings/security/member-add-mode"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_get_member_add_mode(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get settings - who can add new members (async)"""
+        url = f"/api/{session}/groups/{id}/settings/security/member-add-mode"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
     def get_invite_code(self, session: str, id: str, **kwargs: Any) -> Any:
         """Gets the invite code for the group."""
         url = f"/api/{session}/groups/{id}/invite-code"

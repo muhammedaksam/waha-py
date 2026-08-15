@@ -531,6 +531,50 @@ class SessionsApi:
         except Exception:
             return response.text
 
+    def fetch_message_capping(self, session: str, **kwargs: Any) -> Any:
+        """Fetch the account new-chat message capping (per-cycle quota)"""
+        url = f"/api/sessions/{session}/capping"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_fetch_message_capping(self, session: str, **kwargs: Any) -> Any:
+        """Fetch the account new-chat message capping (per-cycle quota) (async)"""
+        url = f"/api/sessions/{session}/capping"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def fetch_reachout_timelock(self, session: str, **kwargs: Any) -> Any:
+        """Fetch the account reachout timelock state"""
+        url = f"/api/sessions/{session}/timelock"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_fetch_reachout_timelock(self, session: str, **kwargs: Any) -> Any:
+        """Fetch the account reachout timelock state (async)"""
+        url = f"/api/sessions/{session}/timelock"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
     def start(self, session: str, **kwargs: Any) -> Any:
         """Start the session"""
         url = f"/api/sessions/{session}/start"

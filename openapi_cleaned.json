@@ -928,6 +928,80 @@
         ]
       }
     },
+    "/api/sessions/{session}/capping": {
+      "get": {
+        "operationId": "SessionsController_fetchMessageCapping",
+        "summary": "Fetch the account new-chat message capping (per-cycle quota)",
+        "description": "Fetch a fresh new-chat message capping (quota) state from WhatsApp. The same value is also available under me.messageCapping in the session info, and changes are pushed through the session.status event.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageCappingData"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "\ud83d\udda5\ufe0f Sessions"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/sessions/{session}/timelock": {
+      "get": {
+        "operationId": "SessionsController_fetchReachoutTimelock",
+        "summary": "Fetch the account reachout timelock state",
+        "description": "Fetch a fresh reachout timelock state from WhatsApp - the restriction behind \"server returned error 463\" when messaging new contacts. The same value is also available under me.reachoutTimelock in the session info, and changes are pushed through the session.status event.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReachoutTimelockData"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "\ud83d\udda5\ufe0f Sessions"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
     "/api/sessions/{session}/start": {
       "post": {
         "operationId": "SessionsController_start",
@@ -7491,7 +7565,7 @@
   "info": {
     "title": "WAHA - WhatsApp HTTP API",
     "description": "<b>WhatsApp HTTP API</b> that you can run in a click!<br/><a href=\"/dashboard\"><b>\ud83d\udcca Dashboard</b></a><br/><br/>Learn more:<ul><li><a href=\"https://waha.devlike.pro/\" target=\"_blank\">Documentation</a></li><li><a href=\"https://waha.devlike.pro/docs/how-to/engines/#features\" target=\"_blank\">Supported features in engines</a></li><li><a href=\"https://github.com/devlikeapro/waha\" target=\"_blank\">GitHub - WAHA Core</a></li><li><a href=\"https://github.com/devlikeapro/waha-plus\" target=\"_blank\">GitHub - WAHA Plus</a></li></ul><p>Support the project and get WAHA Plus version!</p><ul><li><a href=\"https://waha.devlike.pro/docs/how-to/plus-version/\" target=\"_blank\">WAHA Plus</a></li><li><a href=\"https://patreon.com/wa_http_api/\" target=\"_blank\">Patreon</a></li><li><a href=\"https://boosty.to/wa-http-api/\" target=\"_blank\">Boosty</a></li><li><a href=\"https://portal.devlike.pro/\" target=\"_blank\">Patron Portal</a></li></ul>",
-    "version": "2026.7.2",
+    "version": "2026.8.1",
     "contact": {}
   },
   "tags": [
@@ -8143,6 +8217,65 @@
           "timeEnforcementEnds"
         ]
       },
+      "MessageCappingData": {
+        "type": "object",
+        "properties": {
+          "cappingStatus": {
+            "enum": [
+              "NONE",
+              "FIRST_WARNING",
+              "SECOND_WARNING",
+              "CAPPED"
+            ],
+            "type": "string",
+            "example": "FIRST_WARNING",
+            "description": "How close the account is to its new-chat quota. CAPPED means new chats are blocked. WhatsApp may introduce new values, so treat it as an open set."
+          },
+          "totalQuota": {
+            "type": "number",
+            "example": 1000,
+            "description": "New-chat messages allowed in the current cycle. -1 when the account has no cap."
+          },
+          "usedQuota": {
+            "type": "number",
+            "example": 640,
+            "description": "New-chat messages already used in the current cycle."
+          },
+          "cycleStart": {
+            "type": "number",
+            "nullable": true,
+            "example": 1782874800,
+            "description": "Unix timestamp (seconds) when the current cycle started."
+          },
+          "cycleEnd": {
+            "type": "number",
+            "nullable": true,
+            "example": 1785553199,
+            "description": "Unix timestamp (seconds) when the current cycle ends."
+          },
+          "mvStatus": {
+            "type": "string",
+            "nullable": true,
+            "example": "NOT_ELIGIBLE",
+            "description": "Meta Verified status. Informational."
+          },
+          "oteStatus": {
+            "type": "string",
+            "nullable": true,
+            "example": "NOT_ELIGIBLE",
+            "description": "One-time engagement status. Informational."
+          }
+        },
+        "required": [
+          "cappingStatus",
+          "totalQuota",
+          "usedQuota",
+          "cycleStart",
+          "cycleEnd",
+          "mvStatus",
+          "oteStatus"
+        ]
+      },
       "MeInfo": {
         "type": "object",
         "properties": {
@@ -8165,6 +8298,15 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/ReachoutTimelockData"
+              }
+            ]
+          },
+          "messageCapping": {
+            "nullable": true,
+            "description": "WhatsApp new-chat message capping (per-cycle quota) info. Null until the capping state has been fetched for the account.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MessageCappingData"
               }
             ]
           },
@@ -8290,6 +8432,18 @@
             "type": "boolean",
             "nullable": true,
             "description": "Store labels locally. Set to false to disable; omit or null to keep enabled.",
+            "example": true
+          },
+          "contacts": {
+            "type": "boolean",
+            "nullable": true,
+            "description": "Store contacts locally. Set to false to disable; omit or null to keep enabled. When disabled: contacts API returns no data, no contact names in chats, no PushName/BusinessName events, and sending status to all contacts does not work.",
+            "example": true
+          },
+          "messageSecrets": {
+            "type": "boolean",
+            "nullable": true,
+            "description": "Store message secrets locally. Set to false to disable; omit or null to keep enabled. When disabled: incoming poll votes, event responses and bot messages can not be decrypted, and sending own poll votes does not work.",
             "example": true
           }
         }
@@ -8474,7 +8628,9 @@
                 "messages": true,
                 "groups": true,
                 "chats": true,
-                "labels": true
+                "labels": true,
+                "contacts": true,
+                "messageSecrets": true
               }
             },
             "allOf": [
@@ -10099,6 +10255,11 @@
           "chatId": {
             "type": "string",
             "example": "Chat id for the phone number. Undefined if the number does not exist"
+          },
+          "pn": {
+            "type": "string",
+            "description": "Phone number id (@c.us). Can be null when only a @lid chatId is known",
+            "example": "11111111111@c.us"
           },
           "numberExists": {
             "type": "boolean"

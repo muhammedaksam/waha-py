@@ -619,10 +619,16 @@ class SessionsApi:
         except Exception:
             return response.text
 
-    def logout(self, session: str, **kwargs: Any) -> Any:
+    def logout(self, session: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any) -> Any:
         """Logout from the session"""
         url = f"/api/sessions/{session}/logout"
         request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
         request_kwargs.update(kwargs)
         response = self._http.request("POST", url, **request_kwargs)
         try:
@@ -630,10 +636,16 @@ class SessionsApi:
         except Exception:
             return response.text
 
-    async def a_logout(self, session: str, **kwargs: Any) -> Any:
+    async def a_logout(self, session: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any) -> Any:
         """Logout from the session (async)"""
         url = f"/api/sessions/{session}/logout"
         request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
         request_kwargs.update(kwargs)
         response = await self._http.arequest("POST", url, **request_kwargs)
         try:
@@ -1119,6 +1131,40 @@ class ChattingApi:
     async def a_send_video(self, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any) -> Any:
         """Send a video (async)"""
         url = "/api/sendVideo"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def send_sticker(self, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any) -> Any:
+        """Send a sticker"""
+        url = "/api/sendSticker"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = self._http.request("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_send_sticker(self, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any) -> Any:
+        """Send a sticker (async)"""
+        url = "/api/sendSticker"
         request_kwargs = {}
         if payload is not None:
             request_kwargs["json"] = (
@@ -4010,6 +4056,164 @@ class GroupsApi:
         except Exception:
             return response.text
 
+    def set_membership_approval_mode(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Update settings - approve new members"""
+        url = f"/api/{session}/groups/{id}/settings/security/membership-approval"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = self._http.request("PUT", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_set_membership_approval_mode(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Update settings - approve new members (async)"""
+        url = f"/api/{session}/groups/{id}/settings/security/membership-approval"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("PUT", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def get_membership_approval_mode(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get settings - approve new members"""
+        url = f"/api/{session}/groups/{id}/settings/security/membership-approval"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_get_membership_approval_mode(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get settings - approve new members (async)"""
+        url = f"/api/{session}/groups/{id}/settings/security/membership-approval"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def get_group_join_requests(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get pending requests to join the group"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_get_group_join_requests(self, session: str, id: str, **kwargs: Any) -> Any:
+        """Get pending requests to join the group (async)"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def approve_group_join_requests(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Approve pending requests to join the group"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests/approve"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = self._http.request("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_approve_group_join_requests(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Approve pending requests to join the group (async)"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests/approve"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def reject_group_join_requests(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Reject pending requests to join the group"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests/reject"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = self._http.request("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_reject_group_join_requests(
+        self, session: str, id: str, payload: Optional[Union[dict[str, Any], Any]] = None, **kwargs: Any
+    ) -> Any:
+        """Reject pending requests to join the group (async)"""
+        url = f"/api/{session}/groups/{id}/participants/join-requests/reject"
+        request_kwargs = {}
+        if payload is not None:
+            request_kwargs["json"] = (
+                payload
+                if isinstance(payload, dict)
+                else (payload.model_dump() if hasattr(payload, "model_dump") else payload)
+            )
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
     def get_invite_code(self, session: str, id: str, **kwargs: Any) -> Any:
         """Gets the invite code for the group."""
         url = f"/api/{session}/groups/{id}/invite-code"
@@ -4930,6 +5134,153 @@ class AppsApi:
     async def a_delete(self, id: str, **kwargs: Any) -> Any:
         """Delete an app (async)"""
         url = f"/api/apps/{id}"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge(self, id: str, **kwargs: Any) -> Any:
+        """Purge app storage by app ID"""
+        url = f"/api/apps/{id}/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge(self, id: str, **kwargs: Any) -> Any:
+        """Purge app storage by app ID (async)"""
+        url = f"/api/apps/{id}/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge_unique_app(self, app: str, session: str, **kwargs: Any) -> Any:
+        """Purge app storage by app name and session"""
+        url = f"/api/apps/{app}/{session}/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge_unique_app(self, app: str, session: str, **kwargs: Any) -> Any:
+        """Purge app storage by app name and session (async)"""
+        url = f"/api/apps/{app}/{session}/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+
+class BrazilianPhoneNumbersApi:
+    """API Controller for BrazilianPhoneNumbers."""
+
+    def __init__(self, http_client: WahaHttpClient) -> None:
+        self._http = http_client
+
+    def memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries (async)"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries (async)"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats (async)"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache (async)"""
+        url = f"/api/apps/brazilian-phone-numbers/{session}/cache/purge"
         request_kwargs = {}
         request_kwargs.update(kwargs)
         response = await self._http.arequest("DELETE", url, **request_kwargs)

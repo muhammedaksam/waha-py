@@ -4,6 +4,7 @@ from .generated.api import (
     ApiKeysApi,
     AppsApi,
     AuthApi,
+    BrazilianPhoneNumbersApi,
     CallsApi,
     ChannelsApi,
     ChatsApi,
@@ -67,6 +68,7 @@ class WahaClient:
         self.version = VersionApi(self._http)
         self.media = MediaApi(self._http)
         self.apps = AppsApi(self._http)
+        self.brazilian_phone_numbers = BrazilianPhoneNumbersApi(self._http)
         self.mcp = McpApi(self._http)
 
     def close(self) -> None:
@@ -110,6 +112,7 @@ class AsyncWahaClient:
         self.version = VersionApi(self._http)
         self.media = MediaApi(self._http)
         self.apps = AppsApi(self._http)
+        self.brazilian_phone_numbers = BrazilianPhoneNumbersApi(self._http)
         self.mcp = McpApi(self._http)
 
     async def close(self) -> None:

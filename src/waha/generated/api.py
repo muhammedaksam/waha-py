@@ -5187,6 +5187,109 @@ class AppsApi:
             return response.text
 
 
+class ArgentinePhoneNumbersApi:
+    """API Controller for ArgentinePhoneNumbers."""
+
+    def __init__(self, http_client: WahaHttpClient) -> None:
+        self._http = http_client
+
+    def memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries (async)"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries (async)"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats (async)"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache (async)"""
+        url = f"/api/apps/argentine-phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+
 class BrazilianPhoneNumbersApi:
     """API Controller for BrazilianPhoneNumbers."""
 
@@ -5313,6 +5416,212 @@ class McpApi:
         request_kwargs = {}
         request_kwargs.update(kwargs)
         response = await self._http.arequest("POST", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+
+class MexicanPhoneNumbersApi:
+    """API Controller for MexicanPhoneNumbers."""
+
+    def __init__(self, http_client: WahaHttpClient) -> None:
+        self._http = http_client
+
+    def memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries (async)"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries (async)"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats (async)"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache (async)"""
+        url = f"/api/apps/mexican-phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+
+class PhoneNumbersApi:
+    """API Controller for PhoneNumbers."""
+
+    def __init__(self, http_client: WahaHttpClient) -> None:
+        self._http = http_client
+
+    def memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries"""
+        url = f"/api/apps/phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_memory(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List in-memory cache entries (async)"""
+        url = f"/api/apps/phone-numbers/{session}/cache/memory"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries"""
+        url = f"/api/apps/phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_db(self, session: str, params: Optional[dict[str, Any]] = None, **kwargs: Any) -> Any:
+        """List persistent cache entries (async)"""
+        url = f"/api/apps/phone-numbers/{session}/cache/db"
+        request_kwargs = {}
+        if params is not None:
+            request_kwargs["params"] = params
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats"""
+        url = f"/api/apps/phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_stats(self, session: str, **kwargs: Any) -> Any:
+        """Get cache stats (async)"""
+        url = f"/api/apps/phone-numbers/{session}/cache/stats"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("GET", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    def purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache"""
+        url = f"/api/apps/phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = self._http.request("DELETE", url, **request_kwargs)
+        try:
+            return response.json()
+        except Exception:
+            return response.text
+
+    async def a_purge(self, session: str, **kwargs: Any) -> Any:
+        """Purge the resolved-numbers cache (async)"""
+        url = f"/api/apps/phone-numbers/{session}/cache/purge"
+        request_kwargs = {}
+        request_kwargs.update(kwargs)
+        response = await self._http.arequest("DELETE", url, **request_kwargs)
         try:
             return response.json()
         except Exception:

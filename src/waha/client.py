@@ -3,6 +3,7 @@ from typing import Optional
 from .generated.api import (
     ApiKeysApi,
     AppsApi,
+    ArgentinePhoneNumbersApi,
     AuthApi,
     BrazilianPhoneNumbersApi,
     CallsApi,
@@ -18,6 +19,8 @@ from .generated.api import (
     LidsApi,
     McpApi,
     MediaApi,
+    MexicanPhoneNumbersApi,
+    PhoneNumbersApi,
     PingApi,
     PresenceApi,
     ProfileApi,
@@ -68,8 +71,11 @@ class WahaClient:
         self.version = VersionApi(self._http)
         self.media = MediaApi(self._http)
         self.apps = AppsApi(self._http)
+        self.argentine_phone_numbers = ArgentinePhoneNumbersApi(self._http)
         self.brazilian_phone_numbers = BrazilianPhoneNumbersApi(self._http)
         self.mcp = McpApi(self._http)
+        self.mexican_phone_numbers = MexicanPhoneNumbersApi(self._http)
+        self.phone_numbers = PhoneNumbersApi(self._http)
 
     def close(self) -> None:
         self._http.close()
@@ -112,8 +118,11 @@ class AsyncWahaClient:
         self.version = VersionApi(self._http)
         self.media = MediaApi(self._http)
         self.apps = AppsApi(self._http)
+        self.argentine_phone_numbers = ArgentinePhoneNumbersApi(self._http)
         self.brazilian_phone_numbers = BrazilianPhoneNumbersApi(self._http)
         self.mcp = McpApi(self._http)
+        self.mexican_phone_numbers = MexicanPhoneNumbersApi(self._http)
+        self.phone_numbers = PhoneNumbersApi(self._http)
 
     async def close(self) -> None:
         await self._http.aclose()

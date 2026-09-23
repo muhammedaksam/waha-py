@@ -2637,6 +2637,7 @@
             "name": "limit",
             "in": "query",
             "schema": {
+              "default": 20,
               "type": "number"
             }
           },
@@ -7962,10 +7963,13 @@
             "in": "path",
             "schema": {
               "enum": [
+                "argentine-phone-numbers",
+                "brazilian-phone-numbers",
                 "chatwoot",
                 "calls",
                 "mcp",
-                "brazilian-phone-numbers"
+                "mexican-phone-numbers",
+                "phone-numbers"
               ],
               "type": "string"
             }
@@ -7985,6 +7989,154 @@
         },
         "tags": [
           "\ud83e\udde9 Apps"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/argentine-phone-numbers/{session}/cache/memory": {
+      "get": {
+        "operationId": "ArgentinePhoneNumbersController_memory",
+        "summary": "List in-memory cache entries",
+        "description": "Entries from the in-memory cache tier of the running session, sorted by key. The session must be running.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Argentina"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/argentine-phone-numbers/{session}/cache/db": {
+      "get": {
+        "operationId": "ArgentinePhoneNumbersController_db",
+        "summary": "List persistent cache entries",
+        "description": "Entries from the persistent (database) cache tier, sorted by id. Works even when the session is stopped.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Argentina"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/argentine-phone-numbers/{session}/cache/stats": {
+      "get": {
+        "operationId": "ArgentinePhoneNumbersController_stats",
+        "summary": "Get cache stats",
+        "description": "Stats for both cache tiers. \"memory\" is null when the session is not running, \"db\" is null when the persistent cache is disabled.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Argentina"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/argentine-phone-numbers/{session}/cache/purge": {
+      "delete": {
+        "operationId": "ArgentinePhoneNumbersController_purge",
+        "summary": "Purge the resolved-numbers cache",
+        "description": "Removes ALL persistent cache entries and clears the in-memory tier (the in-memory tier only when the session is running).",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Argentina"
         ],
         "security": [
           {
@@ -8024,21 +8176,11 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BrazilianPhoneMemoryCacheEntry"
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "tags": [
-          "\ud83e\udde9 Apps: Brazilian Phone Numbers"
+          "\ud83e\udde9 Apps: Phone Numbers: Brazil"
         ],
         "security": [
           {
@@ -8078,21 +8220,11 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/BrazilianPhoneDbCacheEntry"
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "tags": [
-          "\ud83e\udde9 Apps: Brazilian Phone Numbers"
+          "\ud83e\udde9 Apps: Phone Numbers: Brazil"
         ],
         "security": [
           {
@@ -8118,18 +8250,11 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BrazilianPhoneCacheStatsResponse"
-                }
-              }
-            }
+            "description": ""
           }
         },
         "tags": [
-          "\ud83e\udde9 Apps: Brazilian Phone Numbers"
+          "\ud83e\udde9 Apps: Phone Numbers: Brazil"
         ],
         "security": [
           {
@@ -8155,18 +8280,11 @@
         ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BrazilianPhoneCachePurgeResponse"
-                }
-              }
-            }
+            "description": ""
           }
         },
         "tags": [
-          "\ud83e\udde9 Apps: Brazilian Phone Numbers"
+          "\ud83e\udde9 Apps: Phone Numbers: Brazil"
         ],
         "security": [
           {
@@ -8188,12 +8306,308 @@
           "\ud83e\udde9 Apps: MCP"
         ]
       }
+    },
+    "/api/apps/mexican-phone-numbers/{session}/cache/memory": {
+      "get": {
+        "operationId": "MexicanPhoneNumbersController_memory",
+        "summary": "List in-memory cache entries",
+        "description": "Entries from the in-memory cache tier of the running session, sorted by key. The session must be running.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Mexico"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/mexican-phone-numbers/{session}/cache/db": {
+      "get": {
+        "operationId": "MexicanPhoneNumbersController_db",
+        "summary": "List persistent cache entries",
+        "description": "Entries from the persistent (database) cache tier, sorted by id. Works even when the session is stopped.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Mexico"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/mexican-phone-numbers/{session}/cache/stats": {
+      "get": {
+        "operationId": "MexicanPhoneNumbersController_stats",
+        "summary": "Get cache stats",
+        "description": "Stats for both cache tiers. \"memory\" is null when the session is not running, \"db\" is null when the persistent cache is disabled.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Mexico"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/mexican-phone-numbers/{session}/cache/purge": {
+      "delete": {
+        "operationId": "MexicanPhoneNumbersController_purge",
+        "summary": "Purge the resolved-numbers cache",
+        "description": "Removes ALL persistent cache entries and clears the in-memory tier (the in-memory tier only when the session is running).",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers: Mexico"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/phone-numbers/{session}/cache/memory": {
+      "get": {
+        "operationId": "PhoneNumbersController_memory",
+        "summary": "List in-memory cache entries",
+        "description": "Entries from the in-memory cache tier of the running session, sorted by key. The session must be running.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/phone-numbers/{session}/cache/db": {
+      "get": {
+        "operationId": "PhoneNumbersController_db",
+        "summary": "List persistent cache entries",
+        "description": "Entries from the persistent (database) cache tier, sorted by id. Works even when the session is stopped.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/phone-numbers/{session}/cache/stats": {
+      "get": {
+        "operationId": "PhoneNumbersController_stats",
+        "summary": "Get cache stats",
+        "description": "Stats for both cache tiers. \"memory\" is null when the session is not running, \"db\" is null when the persistent cache is disabled.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/api/apps/phone-numbers/{session}/cache/purge": {
+      "delete": {
+        "operationId": "PhoneNumbersController_purge",
+        "summary": "Purge the resolved-numbers cache",
+        "description": "Removes ALL persistent cache entries and clears the in-memory tier (the in-memory tier only when the session is running).",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "\ud83e\udde9 Apps: Phone Numbers"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
     }
   },
   "info": {
     "title": "WAHA - WhatsApp HTTP API",
     "description": "<b>WhatsApp HTTP API</b> that you can run in a click!<br/><a href=\"/dashboard\"><b>\ud83d\udcca Dashboard</b></a><br/><br/>Learn more:<ul><li><a href=\"https://waha.devlike.pro/\" target=\"_blank\">Documentation</a></li><li><a href=\"https://waha.devlike.pro/docs/how-to/engines/#features\" target=\"_blank\">Supported features in engines</a></li><li><a href=\"https://github.com/devlikeapro/waha\" target=\"_blank\">GitHub - WAHA Core</a></li><li><a href=\"https://github.com/devlikeapro/waha-plus\" target=\"_blank\">GitHub - WAHA Plus</a></li></ul><p>Support the project and get WAHA Plus version!</p><ul><li><a href=\"https://waha.devlike.pro/docs/how-to/plus-version/\" target=\"_blank\">WAHA Plus</a></li><li><a href=\"https://patreon.com/wa_http_api/\" target=\"_blank\">Patreon</a></li><li><a href=\"https://boosty.to/wa-http-api/\" target=\"_blank\">Boosty</a></li><li><a href=\"https://portal.devlike.pro/\" target=\"_blank\">Patron Portal</a></li></ul>",
-    "version": "2026.8.2",
+    "version": "2026.9.1",
     "contact": {}
   },
   "tags": [
@@ -8262,7 +8676,11 @@
       "description": "Applications (built-in integrations)"
     },
     {
-      "name": "\ud83e\udde9 Apps: Brazilian Phone Numbers",
+      "name": "\ud83e\udde9 Apps: Phone Numbers: Argentina",
+      "description": "Resolve Argentine phone numbers (with and without the mobile 9)"
+    },
+    {
+      "name": "\ud83e\udde9 Apps: Phone Numbers: Brazil",
       "description": "Resolve Brazilian phone numbers (with and without 9 digit)"
     },
     {
@@ -8276,6 +8694,14 @@
     {
       "name": "\ud83e\udde9 Apps: MCP",
       "description": "Model Context Protocol (MCP) server for AI clients"
+    },
+    {
+      "name": "\ud83e\udde9 Apps: Phone Numbers: Mexico",
+      "description": "Resolve Mexican phone numbers (with and without the 1 after the country code)"
+    },
+    {
+      "name": "\ud83e\udde9 Apps: Phone Numbers",
+      "description": "Resolve phone numbers matching the configured rules to the chat id WhatsApp knows before sending"
     },
     {
       "name": "\ud83d\udd0d Observability",
@@ -8592,7 +9018,7 @@
           "session"
         ]
       },
-      "BrazilianPhoneNumbersCacheConfig": {
+      "PhoneNumbersCacheConfig": {
         "type": "object",
         "properties": {
           "memoryTtl": {
@@ -8614,13 +9040,13 @@
           }
         }
       },
-      "BrazilianPhoneNumbersAppConfig": {
+      "ArgentinePhoneNumbersAppConfig": {
         "type": "object",
         "properties": {
           "strict": {
             "type": "boolean",
             "default": false,
-            "description": "When a Brazilian mobile number is confirmed NOT to exist on WhatsApp: false (default) - warn and send the best-guess anyway; true - reject the send with 422. Strict trades delivery for certainty and can block valid sends on lookup false-negatives (throttling)."
+            "description": "When a number is confirmed NOT to exist on WhatsApp: false (default) - warn and send the best-guess anyway; true - reject the send with 422. Strict trades delivery for certainty and can block valid sends on lookup false-negatives (throttling)."
           },
           "lookup": {
             "type": "boolean",
@@ -8636,9 +9062,96 @@
             "description": "Cache tuning for resolved numbers.",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BrazilianPhoneNumbersCacheConfig"
+                "$ref": "#/components/schemas/PhoneNumbersCacheConfig"
               }
             ]
+          }
+        }
+      },
+      "BrazilianPhoneNumbersAppConfig": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": false,
+            "description": "When a number is confirmed NOT to exist on WhatsApp: false (default) - warn and send the best-guess anyway; true - reject the send with 422. Strict trades delivery for certainty and can block valid sends on lookup false-negatives (throttling)."
+          },
+          "lookup": {
+            "type": "boolean",
+            "default": true,
+            "description": "Allow the WhatsApp server lookup tier for numbers the cache and the local contact store cannot resolve. When false, unresolved numbers are sent as provided."
+          },
+          "cache": {
+            "default": {
+              "memoryTtl": "24h",
+              "persistent": true,
+              "persistentTtl": "31d"
+            },
+            "description": "Cache tuning for resolved numbers.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumbersCacheConfig"
+              }
+            ]
+          }
+        }
+      },
+      "PhoneNumbersRuleConfig": {
+        "type": "object",
+        "properties": {
+          "regexp": {
+            "type": "string",
+            "description": "Handle numbers (digits only, no + or @c.us) matching this regexp - resolve them to the chat id WhatsApp knows.",
+            "example": "^52"
+          },
+          "replace": {
+            "type": "string",
+            "description": "Also check the replaced form (\"^52(\\d{10})$\" => \"521$1\").",
+            "example": "521$1"
+          }
+        },
+        "required": [
+          "regexp"
+        ]
+      },
+      "PhoneNumbersAppConfig": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": false,
+            "description": "When a number is confirmed NOT to exist on WhatsApp: false (default) - warn and send the best-guess anyway; true - reject the send with 422. Strict trades delivery for certainty and can block valid sends on lookup false-negatives (throttling)."
+          },
+          "lookup": {
+            "type": "boolean",
+            "default": true,
+            "description": "Allow the WhatsApp server lookup tier for numbers the cache and the local contact store cannot resolve. When false, unresolved numbers are sent as provided."
+          },
+          "cache": {
+            "default": {
+              "memoryTtl": "24h",
+              "persistent": true,
+              "persistentTtl": "31d"
+            },
+            "description": "Cache tuning for resolved numbers.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumbersCacheConfig"
+              }
+            ]
+          },
+          "rules": {
+            "description": "Which numbers to handle, first matching rule wins. No rules - handle every number.",
+            "example": [
+              {
+                "regexp": "^52(\\d{10})$",
+                "replace": "521$1"
+              }
+            ],
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PhoneNumbersRuleConfig"
+            }
           }
         }
       },
@@ -8723,6 +9236,20 @@
             "type": "boolean",
             "default": true,
             "description": "Process message.ack events to mark ChatWoot conversations as read. Enabled by default."
+          },
+          "syncMessageStatus": {
+            "type": "boolean",
+            "default": false,
+            "description": "Update Chatwoot message status (delivered/read) for messages sent from Chatwoot using WhatsApp acks. Disabled by default"
+          },
+          "outgoing": {
+            "default": "private-note",
+            "enum": [
+              "private-note",
+              "message"
+            ],
+            "type": "string",
+            "description": "How to show messages sent from WhatsApp (not from ChatWoot): 'private-note' (default) or 'message' - a regular outgoing message, as if an agent sent it."
           },
           "sort": {
             "type": "string",
@@ -8832,6 +9359,34 @@
           "actions"
         ]
       },
+      "MexicanPhoneNumbersAppConfig": {
+        "type": "object",
+        "properties": {
+          "strict": {
+            "type": "boolean",
+            "default": false,
+            "description": "When a number is confirmed NOT to exist on WhatsApp: false (default) - warn and send the best-guess anyway; true - reject the send with 422. Strict trades delivery for certainty and can block valid sends on lookup false-negatives (throttling)."
+          },
+          "lookup": {
+            "type": "boolean",
+            "default": true,
+            "description": "Allow the WhatsApp server lookup tier for numbers the cache and the local contact store cannot resolve. When false, unresolved numbers are sent as provided."
+          },
+          "cache": {
+            "default": {
+              "memoryTtl": "24h",
+              "persistent": true,
+              "persistentTtl": "31d"
+            },
+            "description": "Cache tuning for resolved numbers.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PhoneNumbersCacheConfig"
+              }
+            ]
+          }
+        }
+      },
       "App": {
         "type": "object",
         "properties": {
@@ -8848,10 +9403,13 @@
           },
           "app": {
             "enum": [
+              "argentine-phone-numbers",
+              "brazilian-phone-numbers",
               "chatwoot",
               "calls",
               "mcp",
-              "brazilian-phone-numbers"
+              "mexican-phone-numbers",
+              "phone-numbers"
             ],
             "type": "string"
           },
@@ -9690,6 +10248,14 @@
             "example": "BBBBBBBBBBBBBBBBB",
             "default": null
           },
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "reply_to": {
             "type": "string",
             "description": "The ID of the message to reply to - false_11111111111@c.us_AAAAAAAAAAAAAAAAAAAA",
@@ -9979,6 +10545,14 @@
               }
             ]
           },
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "reply_to": {
             "type": "string",
             "description": "The ID of the message to reply to - false_11111111111@c.us_AAAAAAAAAAAAAAAAAAAA",
@@ -10014,6 +10588,14 @@
                 "$ref": "#/components/schemas/BinaryFile"
               }
             ]
+          },
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "reply_to": {
             "type": "string",
@@ -10181,6 +10763,14 @@
                 "$ref": "#/components/schemas/VideoBinaryFile"
               }
             ]
+          },
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "reply_to": {
             "type": "string",
@@ -10740,6 +11330,7 @@
         "properties": {
           "name": {
             "type": "string",
+            "maxLength": 255,
             "example": "How are you?"
           },
           "options": {
@@ -10750,7 +11341,8 @@
             ],
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 100
             }
           },
           "multipleAnswers": {
@@ -11034,6 +11626,14 @@
             "example": "BBBBBBBBBBBBBBBBB",
             "default": null
           },
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "reply_to": {
             "type": "string",
             "description": "The ID of the message to reply to - false_11111111111@c.us_AAAAAAAAAAAAAAAAAAAA",
@@ -11221,6 +11821,14 @@
       "EditMessageRequest": {
         "type": "object",
         "properties": {
+          "mentions": {
+            "description": "Chat IDs to mention in the message. Use [\"all\"] to mention all participants in a group.",
+            "example": null,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "text": {
             "type": "string",
             "default": "Hello, world!"
@@ -12416,131 +13024,6 @@
             "example": null
           }
         }
-      },
-      "BrazilianPhoneMemoryCacheEntry": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Phone number digits the cache entry is keyed by"
-          },
-          "chatId": {
-            "type": "string",
-            "description": "Resolved chat id. An empty string is a confirmed-negative - the number is verified NOT to exist on WhatsApp."
-          },
-          "expiresAt": {
-            "format": "date-time",
-            "type": "string",
-            "nullable": true,
-            "description": "When the entry expires; null when it has no TTL"
-          }
-        },
-        "required": [
-          "key",
-          "chatId",
-          "expiresAt"
-        ]
-      },
-      "BrazilianPhoneDbCacheEntry": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "description": "Record id"
-          },
-          "key": {
-            "type": "string",
-            "description": "Phone number digits the cache entry is keyed by"
-          },
-          "chatId": {
-            "type": "string",
-            "description": "Resolved chat id"
-          },
-          "verified": {
-            "type": "boolean",
-            "description": "Whether the resolution was verified against WhatsApp"
-          },
-          "resolvedAt": {
-            "format": "date-time",
-            "type": "string",
-            "description": "When the number was resolved"
-          }
-        },
-        "required": [
-          "id",
-          "key",
-          "chatId",
-          "verified",
-          "resolvedAt"
-        ]
-      },
-      "BrazilianPhoneMemoryCacheStats": {
-        "type": "object",
-        "properties": {
-          "total": {
-            "type": "number",
-            "description": "Number of entries in the in-memory cache"
-          }
-        },
-        "required": [
-          "total"
-        ]
-      },
-      "BrazilianPhoneDbCacheStats": {
-        "type": "object",
-        "properties": {
-          "total": {
-            "type": "number",
-            "description": "Total number of entries in the persistent cache"
-          },
-          "verified": {
-            "type": "number",
-            "description": "Number of entries verified against WhatsApp"
-          }
-        },
-        "required": [
-          "total",
-          "verified"
-        ]
-      },
-      "BrazilianPhoneCacheStatsResponse": {
-        "type": "object",
-        "properties": {
-          "memory": {
-            "nullable": true,
-            "description": "In-memory cache stats; null when the session is not running",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BrazilianPhoneMemoryCacheStats"
-              }
-            ]
-          },
-          "db": {
-            "nullable": true,
-            "description": "Persistent cache stats; null when the persistent cache is disabled",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/BrazilianPhoneDbCacheStats"
-              }
-            ]
-          }
-        },
-        "required": [
-          "memory",
-          "db"
-        ]
-      },
-      "BrazilianPhoneCachePurgeResponse": {
-        "type": "object",
-        "properties": {
-          "deleted": {
-            "type": "number",
-            "description": "Number of entries removed from the persistent cache"
-          }
-        },
-        "required": [
-          "deleted"
-        ]
       },
       "SessionStatusPoint": {
         "type": "object",

@@ -6278,6 +6278,108 @@
         ]
       }
     },
+    "/api/{session}/groups/{id}/settings/security/member-share-history-mode": {
+      "put": {
+        "operationId": "GroupsController_setMemberShareHistoryMode",
+        "summary": "Update settings - members can send message history to new members",
+        "description": "Updates the group settings for whether members can share message history with new members, or only admins can.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID",
+            "schema": {
+              "example": "123123123@g.us",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsMemberShareHistoryMode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "\ud83d\udc65 Groups"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "required": [
+          "requestBody"
+        ]
+      },
+      "get": {
+        "operationId": "GroupsController_getMemberShareHistoryMode",
+        "summary": "Get settings - members can send message history to new members",
+        "description": "The group settings for whether members can share message history with new members, or only admins can.",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "path",
+            "schema": {
+              "default": "default"
+            },
+            "description": "Session name"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Group ID",
+            "schema": {
+              "example": "123123123@g.us",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsMemberShareHistoryMode"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "\ud83d\udc65 Groups"
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
     "/api/{session}/groups/{id}/settings/security/membership-approval": {
       "put": {
         "operationId": "GroupsController_setMembershipApprovalMode",
@@ -8607,7 +8709,7 @@
   "info": {
     "title": "WAHA - WhatsApp HTTP API",
     "description": "<b>WhatsApp HTTP API</b> that you can run in a click!<br/><a href=\"/dashboard\"><b>\ud83d\udcca Dashboard</b></a><br/><br/>Learn more:<ul><li><a href=\"https://waha.devlike.pro/\" target=\"_blank\">Documentation</a></li><li><a href=\"https://waha.devlike.pro/docs/how-to/engines/#features\" target=\"_blank\">Supported features in engines</a></li><li><a href=\"https://github.com/devlikeapro/waha\" target=\"_blank\">GitHub - WAHA Core</a></li><li><a href=\"https://github.com/devlikeapro/waha-plus\" target=\"_blank\">GitHub - WAHA Plus</a></li></ul><p>Support the project and get WAHA Plus version!</p><ul><li><a href=\"https://waha.devlike.pro/docs/how-to/plus-version/\" target=\"_blank\">WAHA Plus</a></li><li><a href=\"https://patreon.com/wa_http_api/\" target=\"_blank\">Patreon</a></li><li><a href=\"https://boosty.to/wa-http-api/\" target=\"_blank\">Boosty</a></li><li><a href=\"https://portal.devlike.pro/\" target=\"_blank\">Patron Portal</a></li></ul>",
-    "version": "2026.9.1",
+    "version": "2026.9.2",
     "contact": {}
   },
   "tags": [
@@ -12604,6 +12706,18 @@
         },
         "required": [
           "membersCanAddNewMember"
+        ]
+      },
+      "SettingsMemberShareHistoryMode": {
+        "type": "object",
+        "properties": {
+          "membersCanShareHistory": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": [
+          "membersCanShareHistory"
         ]
       },
       "SettingsMembershipApproval": {
